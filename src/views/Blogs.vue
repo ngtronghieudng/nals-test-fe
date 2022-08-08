@@ -44,6 +44,8 @@
 
     <p class="font-italic text-white text-right">(Page {{ pagination.page }}/{{ pagination.total }} Total)</p>
 
+    <p v-if="results.length === 0 && !isLoading" class="text-center font-italic text-white">No Result</p>
+
     <BaseSpinner :is-loading="isLoading" />
 
     <div v-if="!isLoading">

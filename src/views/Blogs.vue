@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-3">
+  <div class="pt-3 container">
     <form class="customCard bgCard">
       <div class="form-row align-items-end">
         <div class="col-7">

@@ -7,7 +7,7 @@
         </div>
 
         <div class="col-9 px-0">
-          <div class="container bg">
+          <div class="bg">
             <!-- <BaseHeader /> -->
             <router-view class="bg-text" />
           </div>

@@ -7,6 +7,7 @@
         [`btn-${colorType}`]: true,
       }"
       @click="$emit('on-click')"
+      :disabled="disabled"
     >
       {{ text }}
     </button>
@@ -20,6 +21,7 @@ import { Vue, Component, Prop } from 'vue-property-decorator';
 export default class BaseButton extends Vue {
   @Prop({ default: '' }) text!: string;
   @Prop({ default: 'info' }) colorType!: string;
+  @Prop({ default: false }) disabled!: boolean;
 }
 </script>
 

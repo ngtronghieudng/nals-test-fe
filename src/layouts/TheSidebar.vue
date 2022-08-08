@@ -22,7 +22,7 @@
 import { Vue, Component, Prop } from 'vue-property-decorator';
 
 @Component({})
-export default class BaseSidebar extends Vue {
+export default class TheSidebar extends Vue {
   @Prop({ default: true }) resize!: boolean;
 
   welcome() {

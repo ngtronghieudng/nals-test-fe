@@ -82,12 +82,13 @@
         </ul>
       </nav>
     </div>
+
+    <BaseToast :text="textNoti" />
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-// import { Getter, Action } from 'vuex-class';
 import { ACTIONS } from '../store/actions';
 import { GETTERS } from '../store/getters';
 import { GetList } from '@/apis/blogs-api';
@@ -96,6 +97,7 @@ import BaseButton from '@/components/common/BaseButton.vue';
 import { BlogsDto, ItemsDto, PaginationDto } from '@/models/blogsDto';
 import BaseInput from '@/components/common/BaseInput.vue';
 import BaseSelect from '@/components/common/BaseSelect.vue';
+import BaseToast from '@/components/common/BaseToast.vue';
 
 @Component({
   components: {
@@ -103,6 +105,7 @@ import BaseSelect from '@/components/common/BaseSelect.vue';
     BaseButton,
     BaseInput,
     BaseSelect,
+    BaseToast,
   },
 })
 export default class BlogList extends Vue {
@@ -111,6 +114,7 @@ export default class BlogList extends Vue {
 
   results: ItemsDto[] = [];
   isLoading = false;
+  textNoti = '';
 
   searchInput = {
     sort_by: 'created_at',
@@ -150,6 +154,8 @@ export default class BlogList extends Vue {
       this.results = res.data.items;
       this.pagination = res.pagination;
       this.isLoading = false;
+      this.$bvToast.show('my-toast');
+      this.textNoti = 'Get blog successfully';
     });
   }
 
@@ -191,8 +197,6 @@ export default class BlogList extends Vue {
   }
 
   toEditPage(id: string) {
-    console.log('id====', id);
-
     this.$router.push({ name: 'EditBlog', params: { id: id } });
   }
 }

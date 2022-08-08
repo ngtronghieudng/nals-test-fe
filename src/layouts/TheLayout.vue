@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div class="px-0" :class="resizeContainer ? 'container containerCustom' : 'container-fluid'">
+    <div class="px-0 container-fluid">
       <div class="row mx-0">
         <div :class="resize ? 'col-3' : 'col-1'" class="px-0">
-          <BaseSidebar :resize="this.resize" />
+          <TheSidebar :resize="this.resize" />
         </div>
 
         <div class="px-0" :class="resize ? 'col-9' : 'col-11'">
@@ -18,22 +18,22 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import BaseHeader from '@/components/common/BaseHeader.vue';
-import BaseSidebar from '@/components/common/BaseSidebar.vue';
+import TheHeader from '@/layouts/TheHeader.vue';
+import TheSidebar from '@/layouts/TheSidebar.vue';
 
 @Component({
   components: {
-    BaseHeader,
-    BaseSidebar,
+    TheHeader,
+    TheSidebar,
   },
-  created(this: BaseLayout) {
+  created(this: TheLayout) {
     window.addEventListener('resize', this.onResize);
   },
-  beforeDestroy(this: BaseLayout) {
+  beforeDestroy(this: TheLayout) {
     window.removeEventListener('resize', this.onResize);
   },
 })
-export default class BaseLayout extends Vue {
+export default class TheLayout extends Vue {
   resize = true;
   resizeContainer = true;
 

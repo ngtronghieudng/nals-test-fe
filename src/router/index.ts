@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
-import BaseLayout from '@/layouts/BaseLayout.vue';
+import TheLayout from '@/layouts/TheLayout.vue';
 import { loadView } from '@/services/lazy-load.service';
 
 Vue.use(VueRouter);
@@ -8,7 +8,7 @@ Vue.use(VueRouter);
 const routes: Array<RouteConfig> = [
   {
     path: '/',
-    component: BaseLayout,
+    component: TheLayout,
     children: [
       {
         path: '/blog-list',

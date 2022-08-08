@@ -2,12 +2,12 @@ import { MutationTree } from 'vuex';
 import { State } from './state';
 
 const MUTATIONS = {
-  SET_SEARCH_MY_REPORT: 'setSearchMyReport'
+  SET_BLOGS: 'setBlogs'
 };
 
 const mutations: MutationTree<State> = {
-  [MUTATIONS.SET_SEARCH_MY_REPORT](state, myReportFilter: any) {
-    state.hieuState = myReportFilter;
+  [MUTATIONS.SET_BLOGS](state, { data }) {
+    state.blogs = data;
   }
 };
 

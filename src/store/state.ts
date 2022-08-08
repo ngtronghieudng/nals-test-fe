@@ -1,9 +1,11 @@
+import { BlogsDto } from '@/models/blogsDto';
+
 export interface State {
-  hieuState: boolean
+  blogs: BlogsDto
 }
 
 const state: State = {
-  hieuState: true
+  blogs: {}
 };
 
 export default state;

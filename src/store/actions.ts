@@ -1,19 +1,17 @@
-import Vue from 'vue';
 import { ActionTree } from 'vuex';
 import { MUTATIONS } from './mutations';
 import { State } from './state';
-
-const webApi = new Vue();
+import { } from '@/apis/blogs-api';
 
 const ACTIONS = {
-  FETCH_USER: 'fetchUser'
+  FETCH_BLOGS: 'fetchBlogs'
 };
 
 const actions: ActionTree<State, State> = {
-  async [ACTIONS.FETCH_USER]({ commit }) {
-    const user = await webApi.$webApi;
-    commit(MUTATIONS.SET_SEARCH_MY_REPORT, user);
-  }
+  // async [ACTIONS.FETCH_BLOGS]({ commit }, params) {
+  //   const response = await BlogsApi.getBlogList(params);
+  //   commit(MUTATIONS.SET_BLOGS, response);
+  // }
 };
 
 export { ACTIONS };

@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 import BaseLayout from '@/layouts/BaseLayout.vue';
-import Blogs from '@/views/Blogs.vue';
+import { loadView } from '@/services/lazy-load.service';
 
 Vue.use(VueRouter);
 
@@ -12,8 +12,24 @@ const routes: Array<RouteConfig> = [
     children: [
       {
         path: '/blogs',
-        component: Blogs
-      }
+        name: 'BlockList',
+        component: loadView('Blogs'),
+      },
+      {
+        path: '/blog-detail/:id',
+        name: 'BlockDetail',
+        component: loadView('BlogsDetail'),
+      },
+      {
+        path: '/create-blog',
+        name: 'CreateBlog',
+        component: loadView('CreateBlog')
+      },
+      {
+        path: '/',
+        name: 'Welcome',
+        component: loadView('Welcome')
+      },
     ]
   }
   // {
@@ -29,7 +45,8 @@ const routes: Array<RouteConfig> = [
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  linkExactActiveClass: 'active',
 });
 
 export default router;

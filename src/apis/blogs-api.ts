@@ -1,12 +1,23 @@
-import { BaseApi } from '@/apis/base-api';
-import { BlogsDto } from '@/models/blogsDto';
+// import axios from './base-api';
 
-export default class BlogsApi extends BaseApi {
-  getReleaseNotes() : Promise<any> {
-    return this.axios.get('/api/homepage/get-all-release-note');
-  }
+// class BlogsApi {
+//   getBlogList(params: any): Promise<any> {
+//     return axios.get('/api/v2/blogs', { params });
+//   }
+// }
 
-  getBlogList(params: BlogsDto): Promise<any> {
-    return this.axios.get('/api/v2/blogs', { params });
-  }
-}
+// export default new BlogsApi();
+
+import HttpService from './base-api';
+
+export const GetList = (params: any) => HttpService.get('/api/v2/blogs', params);
+
+export const GetDetail = (id: string) => HttpService.get(`api/v2/blogs/${id}`);
+
+export const PostBlog = ({ title, content, image }: any) => {
+  const formData = new FormData();
+  formData.append('title', title);
+  formData.append('content', content);
+  formData.append('image', new Blob([image], { type: 'application/octet-stream' }));
+  return HttpService.post('api/v2/blogs', formData);
+};

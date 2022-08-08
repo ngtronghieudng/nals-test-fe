@@ -2,12 +2,12 @@ import { GetterTree } from 'vuex';
 import { State } from './state';
 
 const GETTERS = {
-  HIEU_GETTERS: 'hieugetters'
+  GET_BLOGS: 'getBlogs'
 };
 
 const getters: GetterTree<State, State> = {
-  [GETTERS.HIEU_GETTERS](state) {
-    return state.hieuState;
+  [GETTERS.GET_BLOGS](state) {
+    return state.blogs;
   }
 };
 

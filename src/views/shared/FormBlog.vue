@@ -43,13 +43,12 @@
     </div>
 
     <div class="form-group">
-      <!-- <button class="btn btn-primary">Submit</button> -->
       <BaseButton :colorType="'info'" :text="'Submit'" @on-click="handleSubmit" />
     </div>
   </form>
 </template>
 <script>
-import BaseButton from '@/components/BaseButton.vue';
+import BaseButton from '@/components/common/BaseButton.vue';
 
 export default {
   name: 'FormBlog',

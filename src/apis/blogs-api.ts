@@ -8,9 +8,10 @@
 
 // export default new BlogsApi();
 
+import { BlogsDto } from '@/models/blogsDto';
 import HttpService from './base-api';
 
-export const GetList = (params: any) => HttpService.get('/api/v2/blogs', params);
+export const GetList = (params: BlogsDto) => HttpService.get('/api/v2/blogs', params);
 
 export const GetDetail = (id: string) => HttpService.get(`api/v2/blogs/${id}`);
 

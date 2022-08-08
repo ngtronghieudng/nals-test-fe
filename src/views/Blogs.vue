@@ -3,38 +3,21 @@
     <form class="customCard bgCard">
       <div class="form-row align-items-end">
         <div class="col-7">
-          <label>Search Blog</label>
-          <input
-            type="text"
-            class="form-control"
-            id="exampleFormControlInput1"
+          <BaseInput
+            label="Search Blog"
+            name="Search"
+            @vm="search"
             placeholder="Please input Title or Content blog ..."
-            v-model="searchInput.search"
           />
         </div>
 
         <div class="col-2">
-          <div>
-            <label>Sort By</label>
-            <select class="custom-select form-control-sm" v-model="searchInput.sort_by">
-              <option v-for="(item, index) in optionSortby" :key="`order-${index}`" :value="item.value">
-                {{ item.name }}
-              </option>
-              <option value="desc">Decrease</option>
-            </select>
-          </div>
+          <BaseSelect label="Sort By" :selectOption="optionSortby" defaultValue="created_at" @vm="sortBy" />
         </div>
         <div class="col-2">
-          <div>
-            <label>Order</label>
-            <select class="custom-select form-control-sm" v-model="searchInput.sort_direction">
-              <option value="asc">Ascending</option>
-              <option value="desc">Decrease</option>
-            </select>
-          </div>
+          <BaseSelect label="Order" :selectOption="optionOrder" defaultValue="desc" @vm="order" />
         </div>
         <div class="col-1">
-          <!-- <button class="btn btn-success" type="button" @click.prevent="onSeach()">Search</button> -->
           <BaseButton :colorType="'info'" :text="'Search'" @on-click="onSeach" />
         </div>
       </div>
@@ -103,21 +86,26 @@ import { Vue, Component } from 'vue-property-decorator';
 import { ACTIONS } from '../store/actions';
 import { GETTERS } from '../store/getters';
 import { GetList } from '@/apis/blogs-api';
-import BaseSpinner from '@/components/BaseSpinner.vue';
-import BaseButton from '@/components/BaseButton.vue';
+import BaseSpinner from '@/components/common/BaseSpinner.vue';
+import BaseButton from '@/components/common/BaseButton.vue';
+import { BlogsDto, ItemsDto, PaginationDto } from '@/models/blogsDto';
+import BaseInput from '@/components/common/BaseInput.vue';
+import BaseSelect from '@/components/common/BaseSelect.vue';
 
 @Component({
   name: 'ListBlogs',
   components: {
     BaseSpinner,
     BaseButton,
+    BaseInput,
+    BaseSelect,
   },
 })
 export default class Blogs extends Vue {
   // @Action(ACTIONS.FETCH_BLOGS) fetchBlogs: (fieldsSearch) => Promise<any>;
   // @Getter(GETTERS.GET_BLOGS) getBlogs!: any;
 
-  results: any = [];
+  results: ItemsDto[] = [];
   isLoading = false;
 
   searchInput = {
@@ -126,7 +114,7 @@ export default class Blogs extends Vue {
     search: '',
   };
 
-  pagination: any = {
+  pagination: PaginationDto = {
     count: 0,
     next: 0,
     offset: 0,
@@ -143,6 +131,11 @@ export default class Blogs extends Vue {
     { name: 'Id', value: 'id' },
   ];
 
+  optionOrder: any = [
+    { name: 'Ascending', value: 'asc' },
+    { name: 'Decrease', value: 'desc' },
+  ];
+
   created() {
     this.fetchPage();
   }
@@ -157,7 +150,7 @@ export default class Blogs extends Vue {
   }
 
   onPrevious(): void {
-    this.pagination.page = this.pagination.prev;
+    this.pagination.page = this.pagination.prev ?? 0;
     this.fetchPage();
   }
 
@@ -179,6 +172,18 @@ export default class Blogs extends Vue {
 
   toDetailPage(id: string) {
     this.$router.push({ name: 'BlockDetail', params: { id: id } });
+  }
+
+  search(val: string) {
+    this.searchInput.search = val;
+  }
+
+  sortBy(val: string) {
+    this.searchInput.sort_by = val;
+  }
+
+  order(val: string) {
+    this.searchInput.sort_direction = val;
   }
 }
 </script>

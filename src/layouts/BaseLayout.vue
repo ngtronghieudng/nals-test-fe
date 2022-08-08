@@ -19,8 +19,8 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import BaseHeader from '@/components/BaseHeader.vue';
-import BaseSidebar from '@/components/BaseSidebar.vue';
+import BaseHeader from '@/components/common/BaseHeader.vue';
+import BaseSidebar from '@/components/common/BaseSidebar.vue';
 
 @Component({
   components: {

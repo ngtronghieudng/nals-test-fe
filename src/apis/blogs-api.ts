@@ -15,10 +15,6 @@ export const GetList = (params: BlogsDto) => HttpService.get('/api/v2/blogs', pa
 
 export const GetDetail = (id: string) => HttpService.get(`api/v2/blogs/${id}`);
 
-export const PostBlog = ({ title, content, image }: any) => {
-  const formData = new FormData();
-  formData.append('title', title);
-  formData.append('content', content);
-  formData.append('image', new Blob([image], { type: 'application/octet-stream' }));
-  return HttpService.post('api/v2/blogs', formData);
-};
+export const PostBlog = (data: any) => HttpService.post('api/v2/blogs', data);
+
+export const EditBlog = (id: string, data: any) => HttpService.put(`api/v2/blogs/${id}`, data);

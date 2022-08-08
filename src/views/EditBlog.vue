@@ -1,7 +1,7 @@
 <template>
   <div class="create-blog mt-5">
     <div class="px-5">
-      <FormBlog />
+      <FormBlog :typeForm="'edit'" />
     </div>
   </div>
 </template>
@@ -15,9 +15,7 @@ import FormBlog from './shared/FormBlog.vue';
     FormBlog,
   },
 })
-export default class CreateBlog extends Vue {
-
-}
+export default class EditBlog extends Vue {}
 </script>
 
 <style scoped>

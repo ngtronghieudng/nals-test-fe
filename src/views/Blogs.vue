@@ -36,13 +36,18 @@
         <li
           v-for="(item, idx) of results"
           :key="`${idx}-item`"
-          class="media mb-2 customCard bgCardList"
+          class="media mb-2 customCard bgCardList d-flex justify-content-between align-items-center"
           @click="toDetailPage(item.id)"
         >
-          <img width="64px" height="64px" :src="item.image.url" class="mr-3" alt="..." />
-          <div class="media-body">
-            <h5 class="mt-0 mb-1">{{ item.title }}</h5>
-            {{ item.content }}
+          <div class="d-flex">
+            <img width="64px" height="64px" :src="item.image.url" class="mr-3" alt="..." />
+            <div class="media-body">
+              <h5 class="mt-0 mb-1">{{ item.title }}</h5>
+              {{ item.content }}
+            </div>
+          </div>
+          <div @click.stop>
+            <button class="btn btn-light" @click="toEditPage(item.id)"><i class="fal fa-pen"></i></button>
           </div>
         </li>
       </ul>
@@ -184,6 +189,12 @@ export default class Blogs extends Vue {
 
   order(val: string) {
     this.searchInput.sort_direction = val;
+  }
+
+  toEditPage(id: string) {
+    console.log('id====', id);
+
+    this.$router.push({ name: 'EditBlog', params: { id: id } });
   }
 }
 </script>

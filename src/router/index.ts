@@ -23,12 +23,17 @@ const routes: Array<RouteConfig> = [
       {
         path: '/create-blog',
         name: 'CreateBlog',
-        component: loadView('CreateBlog')
+        component: loadView('CreateBlog'),
+      },
+      {
+        path: '/edit-blog/:id',
+        name: 'EditBlog',
+        component: loadView('EditBlog'),
       },
       {
         path: '/',
         name: 'Welcome',
-        component: loadView('Welcome')
+        component: loadView('Welcome'),
       },
     ]
   }

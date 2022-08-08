@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-3 container">
+  <div class="pt-3 container blogCustom">
     <form class="customCard bgCard">
       <div class="form-row align-items-end">
         <div class="col-7">
@@ -34,7 +34,8 @@
           </div>
         </div>
         <div class="col-1">
-          <button class="btn btn-success" type="button" @click.prevent="onSeach()">Search</button>
+          <!-- <button class="btn btn-success" type="button" @click.prevent="onSeach()">Search</button> -->
+          <BaseButton :colorType="'info'" :text="'Search'" @on-click="onSeach" />
         </div>
       </div>
     </form>
@@ -43,50 +44,54 @@
 
     <p class="font-italic text-white text-right">(Page {{ pagination.page }}/{{ pagination.total }} Total)</p>
 
-    <ul class="list-unstyled">
-      <li
-        v-for="(item, idx) of results"
-        :key="`${idx}-item`"
-        class="media mb-2 customCard bgCardList"
-        @click="toDetailPage(item.id)"
-      >
-        <img width="64px" height="64px" :src="item.image.url" class="mr-3" alt="..." />
-        <div class="media-body">
-          <h5 class="mt-0 mb-1">{{ item.title }}</h5>
-          {{ item.content }}
-        </div>
-      </li>
-    </ul>
+    <BaseSpinner :is-loading="isLoading" />
 
-    <nav aria-label="Page navigation example">
-      <ul class="pagination justify-content-center">
-        <li class="page-item" :class="pagination.prev === null ? 'disabled' : ''">
-          <a class="page-link" @click="onPrevious()" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
+    <div v-if="!isLoading">
+      <ul class="list-unstyled">
         <li
-          class="page-item"
-          :class="pagination.page === pageNumber ? 'active' : ''"
-          @click="onSelectPageNumber(pageNumber)"
-          v-for="pageNumber of pagination.total"
-          :key="`${pageNumber}-page`"
+          v-for="(item, idx) of results"
+          :key="`${idx}-item`"
+          class="media mb-2 customCard bgCardList"
+          @click="toDetailPage(item.id)"
         >
-          <a class="page-link" href="#">{{ pageNumber }}</a>
-        </li>
-        <li class="page-item">
-          <a
-            class="page-link"
-            :class="pagination.next === null ? 'disabled' : ''"
-            @click="onNext()"
-            href="#"
-            aria-label="Next"
-          >
-            <span aria-hidden="true">&raquo;</span>
-          </a>
+          <img width="64px" height="64px" :src="item.image.url" class="mr-3" alt="..." />
+          <div class="media-body">
+            <h5 class="mt-0 mb-1">{{ item.title }}</h5>
+            {{ item.content }}
+          </div>
         </li>
       </ul>
-    </nav>
+
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item" :class="pagination.prev === null ? 'disabled' : ''">
+            <a class="page-link" @click="onPrevious()" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li
+            class="page-item"
+            :class="pagination.page === pageNumber ? 'active' : ''"
+            @click="onSelectPageNumber(pageNumber)"
+            v-for="pageNumber of pagination.total"
+            :key="`${pageNumber}-page`"
+          >
+            <a class="page-link" href="#">{{ pageNumber }}</a>
+          </li>
+          <li class="page-item">
+            <a
+              class="page-link"
+              :class="pagination.next === null ? 'disabled' : ''"
+              @click="onNext()"
+              href="#"
+              aria-label="Next"
+            >
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </div>
 </template>
 
@@ -96,16 +101,22 @@ import { Vue, Component } from 'vue-property-decorator';
 import { ACTIONS } from '../store/actions';
 import { GETTERS } from '../store/getters';
 import { GetList } from '@/apis/blogs-api';
+import BaseSpinner from '@/components/BaseSpinner.vue';
+import BaseButton from '@/components/BaseButton.vue';
 
 @Component({
   name: 'ListBlogs',
-  components: {},
+  components: {
+    BaseSpinner,
+    BaseButton,
+  },
 })
 export default class Blogs extends Vue {
   // @Action(ACTIONS.FETCH_BLOGS) fetchBlogs: (fieldsSearch) => Promise<any>;
   // @Getter(GETTERS.GET_BLOGS) getBlogs!: any;
 
   results: any = [];
+  isLoading = false;
 
   searchInput = {
     sort_by: 'created_at',
@@ -135,9 +146,11 @@ export default class Blogs extends Vue {
   }
 
   fetchPage(): void {
+    this.isLoading = true;
     GetList(this.pagination).then((res: any) => {
       this.results = res.data.items;
       this.pagination = res.pagination;
+      this.isLoading = false;
     });
   }
 
@@ -204,5 +217,9 @@ label {
   background-color: transparent !important;
   color: #fff;
   border: none;
+}
+
+.blogCustom {
+  min-height: 100vh;
 }
 </style>

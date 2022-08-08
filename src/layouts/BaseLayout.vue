@@ -1,14 +1,13 @@
 <template>
   <div>
-    <div class="container-fluid px-0">
+    <div class="px-0" :class="resizeContainer ? 'container containerCustom' : 'container-fluid'">
       <div class="row mx-0">
-        <div class="col-3 px-0">
-          <BaseSidebar />
+        <div :class="resize ? 'col-3' : 'col-1'" class="px-0">
+          <BaseSidebar :resize="this.resize" />
         </div>
 
-        <div class="col-9 px-0">
+        <div class="px-0" :class="resize ? 'col-9' : 'col-11'">
           <div class="bg">
-            <!-- <BaseHeader /> -->
             <router-view class="bg-text" />
           </div>
         </div>
@@ -27,12 +26,35 @@ import BaseSidebar from '@/components/common/BaseSidebar.vue';
     BaseHeader,
     BaseSidebar,
   },
+  created(this: BaseLayout) {
+    window.addEventListener('resize', this.onResize);
+  },
+  beforeDestroy(this: BaseLayout) {
+    window.removeEventListener('resize', this.onResize);
+  },
 })
-export default class BaseLayout extends Vue {}
+export default class BaseLayout extends Vue {
+  resize = true;
+  resizeContainer = true;
+
+  onResize(): void {
+    if (window.innerWidth > 880) {
+      this.resize = true;
+    } else {
+      this.resize = false;
+    }
+
+    if (window.innerWidth > 1460) {
+      this.resizeContainer = true;
+    } else {
+      this.resizeContainer = false;
+    }
+  }
+}
 </script>
 
 <style scoped>
-/* .bg {
+.bg {
   height: 100%;
   background-position: center;
   background-repeat: no-repeat;
@@ -55,10 +77,15 @@ export default class BaseLayout extends Vue {}
 .bg-text {
   position: relative;
   z-index: 1;
-} */
+}
 
-.bg {
+/* .bg {
   background-color: #395b64;
   height: 100%;
+} */
+
+.containerCustom {
+  min-width: 1440px;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 </style>

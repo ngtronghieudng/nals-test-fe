@@ -19,7 +19,7 @@ import { Vue, Component, Prop } from 'vue-property-decorator';
 @Component({})
 export default class BaseSpinner extends Vue {
   @Prop({ default: false }) isLoading!: boolean;
-  @Prop({ default: 'light' }) colorType!: string;
+  @Prop({ default: 'info' }) colorType!: string;
 }
 </script>
 

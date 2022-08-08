@@ -11,14 +11,14 @@ const routes: Array<RouteConfig> = [
     component: BaseLayout,
     children: [
       {
-        path: '/blogs',
+        path: '/blog-list',
         name: 'BlockList',
-        component: loadView('Blogs'),
+        component: loadView('BlogList'),
       },
       {
         path: '/blog-detail/:id',
         name: 'BlockDetail',
-        component: loadView('BlogsDetail'),
+        component: loadView('BlogDetail'),
       },
       {
         path: '/create-blog',

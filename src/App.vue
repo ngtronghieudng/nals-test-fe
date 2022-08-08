@@ -5,5 +5,9 @@
 </template>
 
 <style>
-@import'~bootstrap/dist/css/bootstrap.css';
+@import '~bootstrap/dist/css/bootstrap.css';
+
+#app {
+  background-color: #ccc;
+}
 </style>

@@ -1,8 +1,8 @@
 <template>
   <div class="pt-3 container blogCustom">
     <form class="customCard bgCard">
-      <div class="form-row align-items-end">
-        <div class="col-7">
+      <div class="form-row align-items-end pb-3">
+        <div class="col-xl-7 col-12">
           <BaseInput
             label="Search Blog"
             name="Search"
@@ -11,19 +11,19 @@
           />
         </div>
 
-        <div class="col-2">
+        <div class="col-xl-2 col-6 pt-3">
           <BaseSelect label="Sort By" :selectOption="optionSortby" defaultValue="created_at" @vm="sortBy" />
         </div>
-        <div class="col-2">
+        <div class="col-xl-2 col-6 pt-3">
           <BaseSelect label="Order" :selectOption="optionOrder" defaultValue="desc" @vm="order" />
         </div>
-        <div class="col-1">
+        <div class="col-xl-1 col-12 pt-4">
           <BaseButton :colorType="'info'" :text="'Search'" @on-click="onSeach" />
         </div>
       </div>
     </form>
 
-    <h2 class="text-center my-4 font-effect-fire">MY BLOGS</h2>
+    <h2 class="text-center mb-4 mt-5 font-effect-fire">MY BLOG LIST</h2>
 
     <p class="font-italic text-white text-right">(Page {{ pagination.page }}/{{ pagination.total }} Total)</p>
 
@@ -32,7 +32,7 @@
     <BaseSpinner :is-loading="isLoading" />
 
     <div v-if="!isLoading">
-      <ul class="list-unstyled">
+      <ul class="list-unstyled listCustom">
         <li
           v-for="(item, idx) of results"
           :key="`${idx}-item`"
@@ -98,7 +98,6 @@ import BaseInput from '@/components/common/BaseInput.vue';
 import BaseSelect from '@/components/common/BaseSelect.vue';
 
 @Component({
-  name: 'ListBlogs',
   components: {
     BaseSpinner,
     BaseButton,
@@ -106,7 +105,7 @@ import BaseSelect from '@/components/common/BaseSelect.vue';
     BaseSelect,
   },
 })
-export default class Blogs extends Vue {
+export default class BlogList extends Vue {
   // @Action(ACTIONS.FETCH_BLOGS) fetchBlogs: (fieldsSearch) => Promise<any>;
   // @Getter(GETTERS.GET_BLOGS) getBlogs!: any;
 
@@ -228,7 +227,7 @@ label {
 
 .bgCardList {
   background: transparent;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 
 .page-link {
@@ -239,5 +238,11 @@ label {
 
 .blogCustom {
   min-height: 100vh;
+}
+
+.listCustom {
+  columns: 2;
+  -webkit-columns: 2;
+  -moz-columns: 2;
 }
 </style>
